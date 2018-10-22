@@ -8,6 +8,13 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
+
+Set up of react files so they can be serverd using django is here
+https://www.fusionbox.com/blog/detail/create-react-app-and-django/624/
+
+Note the react app has to be built using 'npm run build' in the 'frontend' directory, 
+and the resultant static files are collected using 'python manage.py collectstatic' in 'advisory'
+This coomand is not needed on the production server 
 """
 
 import os
@@ -22,6 +29,7 @@ STATICFILES_DIRS = [
   os.path.join(REACT_APP_DIR, 'build', 'static'),
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -44,8 +52,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'a',
 ]
+
+# Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
