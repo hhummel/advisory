@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'a',
+    'about',
 ]
 
 # Rest Framework
